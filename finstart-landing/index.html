@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FinStart — Send Money Across Africa in Seconds</title>
+<meta name="description" content="Zero-fee transfers. Bank-grade security. Works with Paystack, OPay, and GTBank." />
+<link rel="stylesheet" href="css/variables.css" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); background: var(--bg); color: var(--text); }
+
+  /* NAV */
+  nav { padding: 14px 5%; display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid var(--border); backdrop-filter: blur(10px);
+    position: sticky; top: 0; z-index: 10; background: rgba(5,8,15,0.92); transition: box-shadow 0.3s; }
+  nav.scrolled { box-shadow: 0 4px 24px rgba(0,0,0,0.5); }
+  .nav-logo { font-size: 18px; font-weight: 800; }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 24px; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta { background: var(--accent); color: #05080f; padding: 8px 18px; border-radius: var(--radius-pill);
+    font-size: 13px; font-weight: 700; text-decoration: none; border: none; cursor: pointer; }
+
+  /* HERO */
+  .hero { padding: 90px 5% 70px; text-align: center; max-width: 720px; margin: 0 auto; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-dim);
+    border: 1px solid var(--accent-border); color: var(--accent); padding: 5px 14px;
+    border-radius: var(--radius-pill); font-size: 12px; margin-bottom: 28px; }
+  .hero h1 { font-size: clamp(2.2rem, 6vw, 3.8rem); font-weight: 800; letter-spacing: -0.03em;
+    line-height: 1.1; margin-bottom: 18px; }
+  .hero h1 em { color: var(--accent); font-style: normal; }
+  .hero p { color: var(--muted); font-size: 17px; line-height: 1.7; max-width: 480px; margin: 0 auto 36px; }
+  .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 52px; }
+  .btn-primary { background: var(--accent); color: #05080f; padding: 13px 28px;
+    border-radius: var(--radius-pill); font-size: 14px; font-weight: 700; border: none; cursor: pointer; text-decoration: none; }
+  .btn-secondary { background: transparent; color: var(--text); border: 1px solid rgba(255,255,255,0.18);
+    padding: 13px 28px; border-radius: var(--radius-pill); font-size: 14px; cursor: pointer; text-decoration: none; transition: border-color 0.2s; }
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.4); }
+
+  /* STATS BAR */
+  .stats-section { display: flex; justify-content: center; border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border); background: var(--surface); }
+  .stat { flex: 0 0 auto; padding: 26px 44px; border-right: 1px solid var(--border); text-align: center; }
+  .stat:last-child { border-right: none; }
+  .stat-val { font-size: 28px; font-weight: 800; color: var(--accent); }
+  .stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  /* FEATURES */
+  .features { padding: var(--section-pad); max-width: var(--container); margin: 0 auto; }
+  .section-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 8px; }
+  .section-title { font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 52px; }
+  .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .feature-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 26px; transition: border-color 0.2s, box-shadow 0.2s; }
+  .feature-card:hover { border-color: var(--accent-border); box-shadow: var(--shadow-glow); }
+  .feature-icon { font-size: 30px; margin-bottom: 16px; }
+  .feature-title { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+  .feature-desc { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+  /* HOW IT WORKS */
+  .how { padding: var(--section-pad); background: var(--surface); border-top: 1px solid var(--border); }
+  .how-inner { max-width: var(--container); margin: 0 auto; }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+  .step { text-align: center; padding: 24px; }
+  .step-num { width: 44px; height: 44px; border-radius: 50%; background: var(--accent-dim);
+    border: 1px solid var(--accent-border); color: var(--accent); font-weight: 800; font-size: 16px;
+    display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+  .step h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .step p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+  /* CTA */
+  .cta-section { text-align: center; padding: var(--section-pad); }
+  .cta-inner { max-width: 560px; margin: 0 auto; }
+  .cta-section h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .cta-section p { color: var(--muted); font-size: 15px; margin-bottom: 32px; }
+  .waitlist-form { display: flex; gap: 10px; }
+  .waitlist-form input { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15);
+    border-radius: var(--radius-sm); padding: 13px 16px; color: var(--text); font-size: 14px; outline: none; }
+  .waitlist-form input::placeholder { color: var(--muted); }
+  .waitlist-form input:focus { border-color: var(--accent); }
+  .waitlist-form button { background: var(--accent); color: #05080f; border: none; border-radius: var(--radius-sm);
+    padding: 13px 22px; font-size: 14px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+  .form-msg { margin-top: 12px; font-size: 13px; display: none; }
+  .form-msg.success { color: var(--accent); }
+  .form-msg.error { color: #f85149; }
+
+  footer { padding: 24px 5%; text-align: center; color: var(--muted); font-size: 13px;
+    border-top: 1px solid var(--border); }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .features-grid, .steps { grid-template-columns: 1fr; }
+    .stats-section { flex-wrap: wrap; }
+    .stat { width: 50%; border-right: none; border-bottom: 1px solid var(--border); }
+    .waitlist-form { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="nav-logo">Fin<span>Start</span></div>
+  <div class="nav-links" id="nav-menu">
+    <a href="#features">Features</a>
+    <a href="#how">How it works</a>
+    <a href="#waitlist">Pricing</a>
+  </div>
+  <button class="nav-cta" onclick="document.getElementById('waitlist-email').focus()">Get Early Access</button>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">🇳🇬 Built for Nigeria &amp; Africa · Launching 2025</div>
+  <h1>Send money across Africa<br><em>in seconds, not days.</em></h1>
+  <p>Zero fees on your first 10 transfers. Bank-grade security. Works with Paystack, OPay, and GTBank.</p>
+  <div class="hero-actions">
+    <button class="btn-primary" onclick="document.getElementById('waitlist-email').focus()">Create Free Account</button>
+    <button class="btn-secondary">Watch Demo ▶</button>
+  </div>
+</section>
+
+<div class="stats-section">
+  <div class="stat"><div class="stat-val">₦0</div><div class="stat-label">Transfer fees</div></div>
+  <div class="stat"><div class="stat-val">2s</div><div class="stat-label">Avg. transfer time</div></div>
+  <div class="stat"><div class="stat-val">256-bit</div><div class="stat-label">AES Encryption</div></div>
+  <div class="stat"><div class="stat-val counter" data-target="12000">0</div><div class="stat-label">Waitlist signups</div></div>
+</div>
+
+<section id="features" class="features">
+  <div class="section-label">Why FinStart</div>
+  <div class="section-title">Built for African money movement</div>
+  <div class="features-grid">
+    <div class="feature-card"><div class="feature-icon">⚡</div><div class="feature-title">Instant Transfers</div><div class="feature-desc">Move money between Nigerian banks, mobile wallets, and cross-border in under 2 seconds on average.</div></div>
+    <div class="feature-card"><div class="feature-icon">🔒</div><div class="feature-title">Bank-Grade Security</div><div class="feature-desc">256-bit AES encryption, biometric auth, and real-time fraud detection powered by ML models.</div></div>
+    <div class="feature-card"><div class="feature-icon">🌍</div><div class="feature-title">Pan-African Coverage</div><div class="feature-desc">Send to Nigeria, Ghana, Kenya, South Africa, and 12 more countries with competitive exchange rates.</div></div>
+    <div class="feature-card"><div class="feature-icon">💳</div><div class="feature-title">Multi-Provider</div><div class="feature-desc">Fund your wallet via Paystack, OPay, GTBank, or any Nigerian commercial bank. Withdraw anywhere.</div></div>
+    <div class="feature-card"><div class="feature-icon">📱</div><div class="feature-title">Mobile-First</div><div class="feature-desc">Native iOS and Android apps with offline-first design — works even on low connectivity.</div></div>
+    <div class="feature-card"><div class="feature-icon">📊</div><div class="feature-title">Spend Analytics</div><div class="feature-desc">Beautiful charts of your spending, transfers, and savings — updated in real time.</div></div>
+  </div>
+</section>
+
+<section id="how" class="how">
+  <div class="how-inner">
+    <div class="section-label">Simple process</div>
+    <div class="section-title">Up and running in minutes</div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><h3>Create your account</h3><p>Sign up in 60 seconds with your email or phone number. No paperwork.</p></div>
+      <div class="step"><div class="step-num">2</div><h3>Fund your wallet</h3><p>Add money via Paystack, bank transfer, OPay, or USSD. Instantly available.</p></div>
+      <div class="step"><div class="step-num">3</div><h3>Send anywhere</h3><p>Enter a phone number or bank account. Money arrives in under 2 seconds.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="waitlist" class="cta-section">
+  <div class="cta-inner">
+    <h2>Join 12,000+ on the waitlist</h2>
+    <p>Early access users get 50 free transfers and priority onboarding.</p>
+    <form id="waitlist-form" class="waitlist-form">
+      <input id="waitlist-email" type="email" placeholder="your@email.com" required />
+      <button id="waitlist-btn" type="submit">Join Waitlist →</button>
+    </form>
+    <div id="waitlist-msg" class="form-msg"></div>
+  </div>
+</section>
+
+<footer>© 2025 FinStart Technologies Ltd · RC 1234567 · Lagos, Nigeria</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="js/animations.js"></script>
+<script src="js/form.js"></script>
+</body>
+</html>
